@@ -17,8 +17,8 @@
 	<script src="resources/bootstrap/js/bootstrap.js">
 		
 	</script>
-	
-    <jsp:include page="bar_menu.jsp" />
+
+	<jsp:include page="../bar_menu.jsp"/>
  
     <h2>Admin Page</h2>
  
