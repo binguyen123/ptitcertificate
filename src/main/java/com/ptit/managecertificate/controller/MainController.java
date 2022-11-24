@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ptit.managecertificate.entity.Profile;
 import com.ptit.managecertificate.entity.Role;
 import com.ptit.managecertificate.entity.User;
-import com.ptit.managecertificate.model.ProfileModel;
 import com.ptit.managecertificate.model.UserModel;
 import com.ptit.managecertificate.service.UserService;
 
@@ -104,7 +102,6 @@ public class MainController extends BaseController {
 			return "success";
 		}
 	}
-	
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model model, @RequestParam(value = "error", required = false) String error) {

@@ -1,8 +1,13 @@
 package com.ptit.managecertificate.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "certificate")
@@ -20,21 +25,13 @@ public class Certificate implements Serializable, Comparable<Certificate> {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "session_start", nullable = false)
-    private Date session_start;
-
-    @Column(name = "session_stop", nullable = false)
-    private Date session_stop;
-
     public Certificate() {
     }
 
-    public Certificate(int id, String name, String description, Date session_start, Date session_stop) {
+    public Certificate(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.session_start = session_start;
-        this.session_stop = session_stop;
     }
 
     public int getId() {
@@ -59,22 +56,6 @@ public class Certificate implements Serializable, Comparable<Certificate> {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getSession_start() {
-        return session_start;
-    }
-
-    public void setSession_start(Date session_start) {
-        this.session_start = session_start;
-    }
-
-    public Date getSession_stop() {
-        return session_stop;
-    }
-
-    public void setSession_stop(Date session_stop) {
-        this.session_stop = session_stop;
     }
 
     @Override

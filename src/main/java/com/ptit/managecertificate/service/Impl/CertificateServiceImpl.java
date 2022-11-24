@@ -5,6 +5,9 @@ import com.ptit.managecertificate.entity.Certificate;
 import com.ptit.managecertificate.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CertificateServiceImpl implements CertificateService {
@@ -12,22 +15,38 @@ public class CertificateServiceImpl implements CertificateService {
     CertificateDAO certificateDAO;
 
     @Override
+    @Transactional
     public void saveCertificate(Certificate certificate) {
-        certificateDAO.save(certificate);
+        this.certificateDAO.save(certificate);
     }
 
     @Override
+    @Transactional
     public void updateCertificate(Certificate certificate) {
-        certificateDAO.update(certificate);
+        this.certificateDAO.update(certificate);
     }
 
     @Override
+    @Transactional
+    public void deleteCertificate(Certificate certificate) {
+        this.certificateDAO.delete(certificate);
+    }
+
+    @Override
+    @Transactional
+    public List<Certificate> listCertificate() {
+            return this.certificateDAO.findAll();
+    }
+
+    @Override
+    @Transactional
     public Certificate getCertificateByName(String certificate) {
-        return certificateDAO.getCertificateByCertificateName(certificate);
+        return this.certificateDAO.getCertificateByCertificateName(certificate);
     }
 
     @Override
+    @Transactional
     public boolean checkCertificateSInDatabase(Certificate certificate) {
-        return certificateDAO.checkCertificateInDatabase(certificate);
+        return this.certificateDAO.checkCertificateInDatabase(certificate);
     }
 }

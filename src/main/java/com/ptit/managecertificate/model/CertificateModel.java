@@ -6,17 +6,15 @@ public class CertificateModel {
 
     private String name;
     private String description;
-    private Date session_start;
-    private Date session_stop;
+    private String grantedBy;
 
     public CertificateModel() {
     }
 
-    public CertificateModel(String name, String description, Date session_start, Date session_stop) {
+    public CertificateModel(String name, String description, String grantedBy) {
         this.name = name;
         this.description = description;
-        this.session_start = session_start;
-        this.session_stop = session_stop;
+        this.grantedBy = grantedBy;
     }
 
     public String getName() {
@@ -35,24 +33,15 @@ public class CertificateModel {
         this.description = description;
     }
 
-    public Date getSession_start() {
-        return session_start;
+    public String getGrantedBy() {
+        return grantedBy;
     }
 
-    public void setSession_start(Date session_start) {
-        this.session_start = session_start;
+    public void setGrantedBy(String grantedBy) {
+        this.grantedBy = grantedBy;
     }
 
-    public Date getSession_stop() {
-        return session_stop;
-    }
-
-    public void setSession_stop(Date session_stop) {
-        this.session_stop = session_stop;
-    }
-
-    //     this.name =name;
-//        this.description =description;
+    //        this.description =description;
 //        this.session_start =session_start;
 //        this.session_stop =session_stop;
 }

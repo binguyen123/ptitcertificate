@@ -11,9 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Student Enrollment Signup</title>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
-<link href="resources/datepicker/css/datepicker.css" rel="stylesheet" />
-<link href="resources/assets/css/bootstrap-united.css" rel="stylesheet" />
+<jsp:include page="../_extension.jsp"/>
 
 <style>
 .green {
@@ -42,7 +40,7 @@
 </head>
 <body>
 
-	<jsp:include page="../bar_menu.jsp" />
+<jsp:include page="../bar_menu.jsp"/>
 
 	<script src="resources/jquery-1.8.3.js">
 		
@@ -137,12 +135,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-		$(function() {
-			$('#dateOfBirthInput').datepicker();
-		});
-	</script>
 
 	<script>
 		$(function() {

@@ -13,18 +13,19 @@
 
 	<div class="navbar-collapse collapse navbar-responsive-collapse">
 		<ul class="nav navbar-nav navbar-left">
-			<li><a href="/Application">Home</a></li>
+			<li><a href="/Application/">Home</a></li>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="admin">Dashboard</a></li>
+				<li><a href="/welcome">Dashboard</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Create New Account<b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="signupAdmin">Create New Adminitrator</a></li>
-						<li class="divider"></li>
 						<li><a href="signupUser">Create New User</a></li>
+						<li class="divider"></li>
+						<li><a href="users">Manage Users</a></li>
 					</ul></li>
-				<li><a href="certificate">Certificate</a></li>
+				<li><a href="/certificate">Certificate</a></li>
 				<li><a href="certificate">Course</a></li>
 				<li><a href="editProfile">Information</a>
 			</sec:authorize>

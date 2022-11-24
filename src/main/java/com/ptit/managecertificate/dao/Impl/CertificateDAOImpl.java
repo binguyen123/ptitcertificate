@@ -57,9 +57,9 @@ public class CertificateDAOImpl implements CertificateDAO {
     @Override
     public Certificate getCertificateByCertificateName(String certificateName) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select certificate.* from certificate where title = :certificateName ";
+        String sql = "select c.* from Certificate c where title = :certificateName ";
         SQLQuery query = session.createSQLQuery(sql)
-                .addEntity(Profile.class)
+                .addEntity(Certificate.class)
                 .setParameter("certificateName", certificateName);
         List list = query.list();
         if (list != null && list.size() > 0) {
@@ -72,7 +72,7 @@ public class CertificateDAOImpl implements CertificateDAO {
     @Override
     public boolean checkCertificateInDatabase(Certificate certificate) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select certificate.* from certificate where Title = :title";
+        String sql = "select c.* from Certificate c where Title = :title";
         SQLQuery query = (SQLQuery) session.createSQLQuery(sql)
                 .addEntity(User.class)
                 .setParameter("title", certificate.getName());

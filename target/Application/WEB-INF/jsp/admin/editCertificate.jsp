@@ -1,173 +1,89 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec"
-           uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%--
+  Created by IntelliJ IDEA.
+  User: baonguyen
+  Date: 24/11/2022
+  Time: 00:35
+  To change this template use File | Settings | File Templates.
+--%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <c:set var="ctxRoot" value="${pageContext.request.contextPath}"/>
+    <title>Upload Content Frame Love</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>CRUD Certificate</title>
-    <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="resources/datepicker/css/datepicker.css" rel="stylesheet" />
-    <link href="resources/assets/css/bootstrap-united.css" rel="stylesheet" />
+    <link rel="stylesheet" href="${ctxRoot}/resources/DataTables/datatables.min.css"/>
 
-    <style>
-        .green {
-            font-weight: bold;
-            color: green;
-        }
-
-        .message {
-            margin-bottom: 10px;
-        }
-
-        .error {
-            color: #ff0000;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-
-        .errorblock {
-            color: #000;
-            background-color: #ffEEEE;
-            border: 3px solid #ff0000;
-            padding: 8px;
-            margin: 16px;
-        }
-    </style>
+    <jsp:include page="../_extension.jsp"/>
+    <script>
+        $(document).ready(function () {
+            var ajaxUrl = "${ctxRoot}/certificate";
+            var domString = '<"table-header clearfix"<"table-caption"><"DT-lf-right"<"DT-per-page"l>>r>t';		// header and table body
+            domString = domString + '<"table-footer clearfix"<"DT-label"i><"DT-pagination"p>>';	// footer
+            $('#frameLoveInfo').DataTable({
+                searching: true,
+                responsive: true,
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": ajaxUrl
+                },
+                "columns": [
+                    {"data": "id"},
+                    {"data": "name"},
+                    {"data": "decription"}
+                ],
+                "select": true,
+                "order": [[0, "desc"]],
+                "dom": domString
+                ,
+                "createdRow": function (row, data, index) {
+                    $(row).attr('title', data.resultMessage);
+                }
+            });
+        });
+    </script>
 </head>
 <body>
-
-<jsp:include page="../bar_menu.jsp" />
-
-<script src="resources/jquery-1.8.3.js">
-
-</script>
-
-<script src="resources/bootstrap/js/bootstrap.js">
-
-</script>
-
-<script src="resources/datepicker/js/bootstrap-datepicker.js">
-
-</script>
-
-
-<div class="container">
-    <div class="jumbotron">
-        <div>
-            <h1 class="text-center">Create New Account For Admin</h1>
+<jsp:include page="../bar_menu.jsp"/>
+<h1 class="col-md-6 col-md-offset-2">Select content to upload</h1>
+<p class="col-md-6 col-md-offset-2">Upload your content</p>
+<form id="frmUpload" name="frmUpload" action="uploadContentFrameLove" method="POST" class="col-md-6 col-md-offset-2"
+      enctype="multipart/form-data">
+    <div class="form-group row">
+        <label for="file_content" class="col-sm-2 col-form-label">Content File:</label>
+        <div class="col-sm-8">
+            <input type="File" id="file_content" name="file_content" class="form-control required" aria-required="true"
+                   required>
+            <small id="emailHelp" class="form-text text-muted">select file to update content for frame love</small>
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" name="submit" value="Upload File" id="send-message" class="btn btn-primary pull-right">
         </div>
     </div>
-
-    <div></div>
-</div>
-
-<c:if test="${not empty message}">
-    <div class="message green">${message}</div>
-</c:if>
-
-<div class="col-lg-6 col-lg-offset-3">
-    <div class="well">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <form:form id="myForm" method="post"
-                               class="bs-example form-horizontal" modelAttribute="certificate">
-                        <fieldset>
-                            <legend>Create New Certificate</legend>
-
-                            <div class="form-group">
-                                <label for="userNameInput" class="col-lg-3 control-label">Username:</label>
-                                <div class="col-lg-9">
-                                    <form:input type="text" class="form-control" path="username"
-                                                name="username" id="userNameInput" placeholder="User Name" />
-                                    <form:errors path="username" name="username" cssClass="error" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="passwordInput" class="col-lg-3 control-label">Password:</label>
-                                <div class="col-lg-9">
-                                    <form:input type="password" class="form-control"
-                                                path="password" name="password" id="passwordInput"
-                                                placeholder="Password" />
-                                    <form:errors path="password" name="password" cssClass="error" />
-                                </div>
-                            </div>
-
-                            <div class="col-lg-9 col-lg-offset-3">
-
-                                <button class="btn btn-primary" data-toggle="modal"
-                                        data-target="#themodal">Submit</button>
-                                <button class="btn btn-default">Cancel</button>
-
-                                <div id="themodal" class="modal fade" data-backdrop="static">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">&times;</button>
-                                                <h3>Signup Form Submission</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Do you want create user account?</p>
-                                                <div class="progress progress-striped active">
-                                                    <div id="doitprogress" class="progress-bar"></div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input type="submit" value="Yes" id="yesbutton"
-                                                       class="btn btn-primary" data-loading-text="Saving.."
-                                                       data-complete-text="Saved!"> <a href="#"
-                                                                                       class="btn btn-default" data-dismiss="modal">Cancel</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form:form>
-                </div>
+    <table id="frameLoveInfo" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+    </table>
+    <c:if test="${status != null}">
+        <c:if test="${status == 'success'}">
+            <div class="alert alert-dismissible alert-success pull-left">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    ${message}
             </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function() {
-        $('#dateOfBirthInput').datepicker();
-    });
-</script>
-
-<script>
-    $(function() {
-        var yesButton = $("#yesbutton");
-        var progress = $("#doitprogress");
-
-        yesButton.click(function() {
-            yesButton.button("loading");
-
-            var counter = 0;
-            var countDown = function() {
-                counter++;
-                if (counter == 11) {
-                    yesButton.button("complete");
-                } else {
-                    progress.width(counter * 10 + "%");
-                    setTimeout(countDown, 100);
-                }
-            };
-            setTimeout(countDown, 100);
-        });
-
-    });
-</script>
-
-
+        </c:if>
+        <c:if test="${status == 'error'}">
+            <div class="alert alert-dismissible alert-danger pull-left">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    ${message}
+            </div>
+        </c:if>
+    </c:if>
+</form>
 </body>
 </html>

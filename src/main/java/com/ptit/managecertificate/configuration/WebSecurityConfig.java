@@ -36,9 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/term","/table", "/login", "/logout","/resources/**","/contact").permitAll();
 		// Trang chỉ dành cho User
 		//http.authorizeRequests().antMatchers("/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-		http.authorizeRequests().antMatchers("/editProfile").access("hasRole('ROLE_USER'");
+		http.authorizeRequests().antMatchers("/editProfile").access("hasRole('ROLE_USER')");
 		// Trang chỉ dành cho ADMIN
-	    http.authorizeRequests().antMatchers("/signupUser", "/signupAdmin", "/editProfile").access("hasRole('ROLE_ADMIN')");
+	    http.authorizeRequests().antMatchers("/signupUser", "/signupAdmin", "/editProfile","/users").access("hasRole('ROLE_ADMIN')");
 		// Khi người dùng đã login, với vai trò XX.
 	    // Nhưng truy cập vào trang yêu cầu vai trò YY,
 	    // Ngoại lệ AccessDeniedException sẽ ném ra.
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Submit URL của trang login
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/login?error=false")//
-                .defaultSuccessUrl("/userInfo")//
+                .defaultSuccessUrl("/")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")

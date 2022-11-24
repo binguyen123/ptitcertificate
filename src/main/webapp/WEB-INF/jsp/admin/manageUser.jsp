@@ -6,14 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page session="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Student Enrollment Signup</title>
-    <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="resources/datepicker/css/datepicker.css" rel="stylesheet" />
-    <link href="resources/assets/css/bootstrap-united.css" rel="stylesheet" />
+    <title>Manage user</title>
+    <jsp:include page="../_extension.jsp"/>
 
     <style>
         .green {
@@ -41,73 +43,158 @@
     </style>
 </head>
 <body>
-    <jsp:include page="../bar_menu.jsp"/>
+<jsp:include page="../bar_menu.jsp"/>
+<div class="container">
+    <div class="jumbotron">
+        <div>
+            <h1 class="text-center">Create New Account for User</h1>
+        </div>
+    </div>
 
-    <div class="col-lg-6 col-lg-offset-3">
-        <div class="well">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <form:form id="myForm" method="post"
-                                   class="bs-example form-horizontal" modelAttribute="manageuser">
-                            <fieldset>
-                                <legend>Manage User</legend>
+    <div></div>
+</div>
 
-                                <div class="form-group">
-                                    <label for="userNameInput" class="col-lg-3 control-label">Username:</label>
-                                    <div class="col-lg-9">
-                                        <form:input type="text" class="form-control" path="username"
-                                                    name="username" id="userNameInput" placeholder="User Name" />
-                                        <form:errors path="username" name="username" cssClass="error" />
-                                    </div>
+<c:if test="${not empty message}">
+    <div class="message green">${message}</div>
+</c:if>
+
+<div class="col-lg-6 col-lg-offset-3">
+    <div class="well">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <form:form action="" id="formChoose" method="post" modelAttribute="testChamp">
+                        <c:if test="${User}"
+                    </form:form>
+
+                    <c:url var="addAction" value="/signupUser"/>
+
+                    <form:form id="myForm" method="POST" action="${addAction}"
+                               class="bs-example form-horizontal" modelAttribute="user">
+                        <fieldset>
+                            <legend>Register account</legend>
+
+                            <div class="form-group">
+                                <label for="userNameInput" class="col-lg-3 control-label">Username:</label>
+                                <div class="col-lg-9">
+                                    <form:input type="text" class="form-control" path="username"
+                                                name="username" id="userNameInput" placeholder="User Name"/>
+                                    <form:errors path="username" name="username" cssClass="error"/>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="passwordInput" class="col-lg-3 control-label">Password:</label>
-                                    <div class="col-lg-9">
-                                        <form:input type="password" class="form-control"
-                                                    path="password" name="password" id="passwordInput"
-                                                    placeholder="Password" />
-                                        <form:errors path="password" name="password" cssClass="error" />
-                                    </div>
+                            <div class="form-group">
+                                <label for="passwordInput" class="col-lg-3 control-label">Password:</label>
+                                <div class="col-lg-9">
+                                    <form:input type="password" class="form-control"
+                                                path="password" name="password" id="passwordInput"
+                                                placeholder="Password"/>
+                                    <form:errors path="password" name="password" cssClass="error"/>
                                 </div>
+                            </div>
 
-                                <div class="col-lg-9 col-lg-offset-3">
+                            <div class="col-lg-9 col-lg-offset-3">
 
-                                    <button class="btn btn-primary" data-toggle="modal"
-                                            data-target="#themodal">Submit</button>
-                                    <button class="btn btn-default">Cancel</button>
+                                <button class="btn btn-primary" data-toggle="modal"
+                                        data-target="#themodal">Create User
+                                </button>
 
-                                    <div id="themodal" class="modal fade" data-backdrop="static">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">&times;</button>
-                                                    <h3>Signup Form Submission</h3>
+                                <button class="btn btn-default">Cancel</button>
+
+                                <div id="themodal" class="modal fade" data-backdrop="static">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;
+                                                </button>
+                                                <h3>Create User?..</h3>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p>Do you want create new user?</p>
+                                                <div class="progress progress-striped active">
+                                                    <div id="doitprogress" class="progress-bar"></div>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <p>Do you want create user account?</p>
-                                                    <div class="progress progress-striped active">
-                                                        <div id="doitprogress" class="progress-bar"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="submit" value="Yes" id="yesbutton"
-                                                           class="btn btn-primary" data-loading-text="Saving.."
-                                                           data-complete-text="Saved!"> <a href="#"
-                                                                                           class="btn btn-default" data-dismiss="modal">Cancel</a>
-                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Yes" id="yesbutton"
+                                                       class="btn btn-primary" data-loading-text="Saving.."
+                                                       data-complete-text="Saved!"> <a href="#"
+                                                                                       class="btn btn-default"
+                                                                                       data-dismiss="modal">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </fieldset>
-                        </form:form>
-                    </div>
+                            </div>
+                        </fieldset>
+                    </form:form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<br>
+<div class="col-lg-6 col-lg-offset-3">
+    <div class="well">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Persons List</h3>
+                    <c:if test="${!empty listUsers}">
+                        <table class="tg">
+                            <tr>
+                                <th width="80">Id</th>
+                                <th width="120">UserName</th>
+                                <th width="120">Password</th>
+                                <th width="60">Edit</th>
+                                <th width="60">Delete</th>
+                            </tr>
+                            <c:forEach items="${listUsers}" var="user">
+                                <tr>
+                                    <td>${user.id}</td>
+                                    <td>${user.username}</td>
+                                    <td>${user.password}</td>
+                                    <td><a href="<c:url value='/edit/${user.id}' />">Edit</a></td>
+                                    <td><a href="<c:url value='/remove/${user.id}' />">Delete</a></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var yesButton = $("#yesbutton");
+        var progress = $("#doitprogress");
+
+        yesButton.click(function () {
+            yesButton.button("loading");
+
+            var counter = 0;
+            var countDown = function () {
+                counter++;
+                if (counter == 11) {
+                    yesButton.button("complete");
+                } else {
+                    progress.width(counter * 10 + "%");
+                    setTimeout(countDown, 100);
+                }
+            };
+            setTimeout(countDown, 100);
+        });
+
+    });
+
+</script>
+
 </body>
 </html>

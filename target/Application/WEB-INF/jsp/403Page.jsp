@@ -17,7 +17,7 @@
 	<script src="resources/bootstrap/js/bootstrap.js">
 		
 	</script>
-	<jsp:include page="bar_menu.jsp" />
+	<jsp:include page="bar_menu.jsp"/>
 
 	<h3 style="color: red;">${message}</h3>
 </body>
