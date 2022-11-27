@@ -2,44 +2,38 @@ package com.ptit.managecertificate.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "certificate")
 public class Certificate implements Serializable, Comparable<Certificate> {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUcode = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id;
+    @Column(name = "code", nullable = false)
+    private String code;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
     public Certificate() {
     }
 
-    public Certificate(int id, String name, String description) {
-        this.id = id;
+    public Certificate(String code, String name, String description) {
+        this.code = code;
         this.name = name;
         this.description = description;
     }
 
-    public int getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -60,9 +54,6 @@ public class Certificate implements Serializable, Comparable<Certificate> {
 
     @Override
     public int compareTo(Certificate o) {
-        if(this.id!=o.id) return this.id>o.id?1:-1;
-        else {
-            return this.name.compareTo(o.name);
-        }
+        return this.code.compareTo(o.getCode());
     }
 }

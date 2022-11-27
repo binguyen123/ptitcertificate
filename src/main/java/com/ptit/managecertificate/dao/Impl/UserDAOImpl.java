@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import com.ptit.managecertificate.model.UserModel;
 @Repository("userDao")
 @Transactional
 public class UserDAOImpl implements UserDAO {
-	
 	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 
     @Autowired
@@ -61,8 +61,8 @@ public class UserDAOImpl implements UserDAO {
 
     public User getUserByUserName(String userName) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select user.* from user where UserName = :userName ";
-        SQLQuery query = session.createSQLQuery(sql)
+        String sql = "select u.* from project.user u where UserName = :userName ";
+        NativeQuery query = session.createSQLQuery(sql)
                 .addEntity(User.class)
                 .setParameter("userName", userName);
         List list = query.list();
@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO {
 
         Session session = sessionFactory.getCurrentSession();
 
-        Query query = session.createQuery(sql);
+        org.hibernate.query.Query query = session.createQuery(sql);
         query.setParameter("username", userName);
 
         return (UserModel) query.uniqueResult();
@@ -87,8 +87,8 @@ public class UserDAOImpl implements UserDAO {
 
     public boolean checkUserInDatabase(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select user.* from user where UserName = :userName";
-        SQLQuery query = (SQLQuery) session.createSQLQuery(sql)
+        String sql = "select u.* from project.user u where UserName = :userName";
+        NativeQuery query = session.createSQLQuery(sql)
                 .addEntity(User.class)
                 .setParameter("userName", user.getUsername());
         List list = query.list();

@@ -31,7 +31,7 @@
 	</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="resources/bootstrap/js/bootstrap.js"></script>
-    <jsp:include page="bar_menu.jsp" />
+    <jsp:include page="_barmenu.jsp" />
     <h1>Logout Successful!</h1>
 </body>
 </html>

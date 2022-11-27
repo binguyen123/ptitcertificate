@@ -4,13 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Update User Information</title>
-    <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="resources/datepicker/css/datepicker.css" rel="stylesheet"/>
-    <link href="resources/assets/css/bootstrap-united.css" rel="stylesheet"/>
+    <jsp:include page="../_extension.jsp"/>
+    
 </head>
 <body>
-<jsp:include page="../bar_menu.jsp"/>
-
+<jsp:include page="../_barmenu.jsp"/>
 <div class="col-lg-6 col-lg-offset-3">
     <div class="well">
         <div class="container">
@@ -69,8 +67,8 @@
 <%--                        </div>--%>
 
                         <div class="col-lg-9 col-lg-offset-3">
-                            <button class="btn btn-default" type="button">Cancel</button>
                             <button class="btn btn-primary">Update</button>
+                            <button class="btn btn-default" type="button">Cancel</button>
                         </div>
                     </form:form>
                 </div>

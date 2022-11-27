@@ -10,7 +10,7 @@
 <script src="resources/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
-	<jsp:include page="bar_menu.jsp" />
+	<jsp:include page="_barmenu.jsp" />
 			<h1 class="col-md-6 col-md-offset-2">Contact to support</h1>
 			<p  class="col-md-6 col-md-offset-2">Send your comments through this form and we will get back to
 				you.</p>

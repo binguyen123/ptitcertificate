@@ -2,6 +2,7 @@ package com.ptit.managecertificate.service.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ptit.managecertificate.service.UserService;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.ptit.managecertificate.entity.Role;
 import com.ptit.managecertificate.entity.User;
-import com.ptit.managecertificate.service.UserService;
 
 @Service
 public class CustomerUserDetailsService implements UserDetailsService {

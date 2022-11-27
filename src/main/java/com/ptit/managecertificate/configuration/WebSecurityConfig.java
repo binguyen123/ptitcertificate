@@ -1,7 +1,9 @@
 package com.ptit.managecertificate.configuration;
 
+import com.ptit.managecertificate.service.Impl.CustomerUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,12 +13,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.ptit.managecertificate.service.Impl.CustomerUserDetailsService;
-
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan("com.ptit.managecertificate")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -33,16 +34,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/term","/table", "/login", "/logout","/resources/**","/contact").permitAll();
+		http.authorizeRequests()
+				.antMatchers( "/login", "/logout","/resources/**","/contact")
+				.permitAll();
+
 		// Trang chỉ dành cho User
-		//http.authorizeRequests().antMatchers("/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-		http.authorizeRequests().antMatchers("/editProfile").access("hasRole('ROLE_USER')");
+		http.authorizeRequests()
+				.antMatchers()
+				.hasAuthority("ROLE_USER");
+
 		// Trang chỉ dành cho ADMIN
-	    http.authorizeRequests().antMatchers("/signupUser", "/signupAdmin", "/editProfile","/users").access("hasRole('ROLE_ADMIN')");
+	    http.authorizeRequests()
+				.antMatchers("/signupUser", "/signupAdmin","/users","/certificate/**")
+				.hasAuthority("ROLE_ADMIN");
+
 		// Khi người dùng đã login, với vai trò XX.
 	    // Nhưng truy cập vào trang yêu cầu vai trò YY,
 	    // Ngoại lệ AccessDeniedException sẽ ném ra.
 	    http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
+		http.authorizeRequests()
+				.antMatchers("/editProfile")
+				.hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
 		
         // Cấu hình cho Login Form.
         http.authorizeRequests().and().formLogin()//

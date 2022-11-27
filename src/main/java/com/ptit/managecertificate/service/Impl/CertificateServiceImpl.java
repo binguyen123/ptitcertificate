@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Service("certificateService")
 public class CertificateServiceImpl implements CertificateService {
     @Autowired
     CertificateDAO certificateDAO;
@@ -36,6 +36,11 @@ public class CertificateServiceImpl implements CertificateService {
     @Transactional
     public List<Certificate> listCertificate() {
             return this.certificateDAO.findAll();
+    }
+
+    @Override
+    public Certificate getCertificateByCode(String code) {
+        return certificateDAO.getCertificateByCode(code);
     }
 
     @Override

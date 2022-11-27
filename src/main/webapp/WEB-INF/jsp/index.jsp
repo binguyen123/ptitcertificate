@@ -12,11 +12,13 @@
     <link href="resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet"/>
 </head>
 <body>
-<jsp:include page="bar_menu.jsp"/>
+
+<jsp:include page="_barmenu.jsp"/>
+
 <div class="container">
     <div class="jumbotron">
 
-        <h1>PTiT Certificate System</h1>
+        <h1>PTiT Certificate System Homepage</h1>
 
         <c:if test="${!loginstatus}">
             <a class="btn btn-primary" href="login">Login >></a>

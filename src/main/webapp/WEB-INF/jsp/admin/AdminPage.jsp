@@ -18,7 +18,7 @@
 		
 	</script>
 
-	<jsp:include page="../bar_menu.jsp"/>
+	<jsp:include page="../_barmenu.jsp"/>
  
     <h2>Admin Page</h2>
  

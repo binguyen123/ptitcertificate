@@ -19,7 +19,7 @@
 		
 	</script>
 
-	<jsp:include page="bar_menu.jsp" />
+	<jsp:include page="_barmenu.jsp" />
 
 	<!-- 
 	<legend>Student Enrollment Login Success</legend>
