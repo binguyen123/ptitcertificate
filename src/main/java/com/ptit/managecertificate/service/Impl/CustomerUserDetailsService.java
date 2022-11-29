@@ -1,7 +1,6 @@
 package com.ptit.managecertificate.service.Impl;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.ptit.managecertificate.entity.User;
 import com.ptit.managecertificate.service.UserService;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ptit.managecertificate.entity.Role;
-import com.ptit.managecertificate.entity.User;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CustomerUserDetailsService implements UserDetailsService {
@@ -34,17 +33,13 @@ public class CustomerUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User " + username + " was not found in the database");
         }
-        
-        List<Role> list = new ArrayList<Role>(user.getRoles());
-        // [USER,ADMIN,..]
-        
-        
+
         logger.info("USER LOGIN ===============>"+user.getUsername());
         logger.info("PASSWORD ===============>"+user.getPassword());
-        logger.info("ROLE ===============>"+list.get(0).getName());
+        logger.info("ROLE ===============>"+user.getRole());
         
         List<GrantedAuthority> grantList= new ArrayList<GrantedAuthority>();
-        GrantedAuthority authority = new SimpleGrantedAuthority(list.get(0).getName());
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
         grantList.add(authority);
         
         UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails

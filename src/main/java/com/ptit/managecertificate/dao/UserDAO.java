@@ -1,16 +1,28 @@
 package com.ptit.managecertificate.dao;
 
-import java.util.List;
-
 import com.ptit.managecertificate.entity.User;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 
 public interface UserDAO {
-	public void save(User user);
-	public void update(User user);
-	public User findById(Long id);
-	public void delete(User user);
-	public List<User> findAll();
-	public User getUserByUserName(String userName);
-	public boolean checkUserInDatabase(User user);
+    void save(User user);
+
+    void update(User user);
+
+    User findById(Long id);
+
+    void delete(User user);
+
+    List<User> findAll();
+
+    User getUserByUserName(String userName);
+
+    boolean checkUserInDatabase(User user);
+
+    long getTotalUser();
+
+    List<User> findByPageable(Pageable pageable);
+
 }

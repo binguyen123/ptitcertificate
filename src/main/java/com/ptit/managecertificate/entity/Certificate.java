@@ -1,39 +1,44 @@
 package com.ptit.managecertificate.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "certificate")
-public class Certificate implements Serializable, Comparable<Certificate> {
-    private static final long serialVersionUcode = 1L;
+public class Certificate implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "code", nullable = false)
-    private String code;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    public Certificate() {
+    @Column(name = "grantedBy")
+    private String grantedBy;
+
+    // OneToOne with course
+
+    // ManyToMany with certificate
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "person_certificate",
+//            joinColumns = { @JoinColumn(name = "certificate_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "person_id") }
+//    )
+//    private Set<Person> personSet = new HashSet<>();
+
+    public Long getId() {
+        return id;
     }
 
-    public Certificate(String code, String name, String description) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -52,8 +57,19 @@ public class Certificate implements Serializable, Comparable<Certificate> {
         this.description = description;
     }
 
-    @Override
-    public int compareTo(Certificate o) {
-        return this.code.compareTo(o.getCode());
+    public String getGrantedBy() {
+        return grantedBy;
     }
+
+    public void setGrantedBy(String grantedBy) {
+        this.grantedBy = grantedBy;
+    }
+
+//    public Set<Person> getPersonSet() {
+//        return personSet;
+//    }
+//
+//    public void setPersonSet(Set<Person> personSet) {
+//        this.personSet = personSet;
+//    }
 }

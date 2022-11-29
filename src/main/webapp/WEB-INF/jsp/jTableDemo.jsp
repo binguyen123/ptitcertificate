@@ -39,7 +39,7 @@
 	    
 	</script>
 
-	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/_barmenu.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/_barmenu.jspsp" />
 
 	<!-- 
 	<legend>Student Enrollment Login Success</legend>

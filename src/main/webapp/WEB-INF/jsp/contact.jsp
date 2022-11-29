@@ -4,10 +4,10 @@
 <head>
 <title>Contact Us</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="resources/assets/css/bootstrap-united.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
-<script src="resources/jquery-1.8.3.js"></script>
-<script src="resources/bootstrap/js/bootstrap.js"></script>
+<link href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-united.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+<script src="${pageContext.request.contextPath}/resources/jquery-1.8.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
 	<jsp:include page="_barmenu.jsp" />

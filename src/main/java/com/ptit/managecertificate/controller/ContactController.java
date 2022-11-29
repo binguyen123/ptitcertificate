@@ -1,18 +1,17 @@
 package com.ptit.managecertificate.controller;
 
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-
+import com.ptit.managecertificate.Email.JavaEmail;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ptit.managecertificate.Email.JavaEmail;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ContactController extends BaseController{
+public class ContactController{
 	   private static final Logger logger = Logger.getLogger(ContactController.class);
 	   @RequestMapping(value = "/contact", method = RequestMethod.GET)
 	   public String contacts(Model model) {

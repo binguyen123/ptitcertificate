@@ -2,16 +2,17 @@ package com.ptit.managecertificate.model;
 
 public class CertificateModel {
 
-	private String code;
+	private Long id;
     private String name;
     private String description;
+	private String grantedBy;
 
-	public String getCode() {
-		return code;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -29,5 +30,12 @@ public class CertificateModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-    
+
+	public String getGrantedBy() {
+		return grantedBy;
+	}
+
+	public void setGrantedBy(String grantedBy) {
+		this.grantedBy = grantedBy;
+	}
 }

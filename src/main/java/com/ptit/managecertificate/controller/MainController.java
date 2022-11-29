@@ -1,7 +1,6 @@
 package com.ptit.managecertificate.controller;
 
-import java.security.Principal;
-
+import com.ptit.managecertificate.model.UserModel;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,23 +8,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ptit.managecertificate.model.UserModel;
+import java.security.Principal;
 
 @Controller
-public class MainController extends BaseController{
+public class MainController{
 	private static final Logger logger = Logger.getLogger(MainController.class);
 
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
-		setUserLogin(model);
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("message", "This is welcome page!");
+		model.addAttribute("message", "This is Homepage!");
 		return "index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model model, @RequestParam(value = "error", required = false) String error) {
-		setUserLogin(model);
 		model.addAttribute("user", new UserModel());
 		logger.info("===============>" + error);
 		if ("true".equalsIgnoreCase(error)) {
@@ -37,7 +34,6 @@ public class MainController extends BaseController{
 
 	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
 	public String logoutSuccessfulPage(Model model) {
-		setUserLogin(model);
 		model.addAttribute("title", "Logout");
 		return "logoutSuccessfulPage";
 	}

@@ -1,8 +1,7 @@
 package com.ptit.managecertificate.dao.Impl;
 
-import java.util.List;
-
-import org.hibernate.SQLQuery;
+import com.ptit.managecertificate.dao.CertificateDAO;
+import com.ptit.managecertificate.entity.Certificate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
@@ -12,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ptit.managecertificate.dao.CertificateDAO;
-import com.ptit.managecertificate.entity.Certificate;
-import com.ptit.managecertificate.entity.User;
+import java.util.List;
 
 @Repository("certificateDao")
 @Transactional
@@ -57,19 +54,21 @@ public class CertificateDAOImpl implements CertificateDAO {
     }
 
     @Override
-    public Certificate getCertificateByCode(String code) {
+    public Certificate getCertificateByCode(Long code) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(Certificate.class, code);
     }
 
     @Override
     public Certificate getCertificateByCertificateName(String name) {
+    	
         Session session = this.sessionFactory.getCurrentSession();
         String sql = "select c.* from project.certificate c where name = :name ";
+        
         NativeQuery query = session.createSQLQuery(sql)
                 .addEntity(Certificate.class)
                 .setParameter("name", name);
-        List list = query.list();
+        List<Certificate> list = query.list();
         if (list != null && list.size() > 0) {
             return (Certificate) query.list().get(0);
         } else {
@@ -80,10 +79,10 @@ public class CertificateDAOImpl implements CertificateDAO {
     @Override
     public boolean checkCertificateInDatabase(Certificate certificate) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select c.* from project.certificate c where code = :code" ;
+        String sql = "select c.* from project.certificate c where name = :name" ;
         NativeQuery query = session.createSQLQuery(sql)
                 .addEntity(Certificate.class)
-                .setParameter("code", certificate.getCode());
+                .setParameter("name", certificate.getName());
         List list = query.list();
         if (list != null && list.size() > 0) {
             return true;

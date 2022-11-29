@@ -1,29 +1,13 @@
 package com.ptit.managecertificate.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -33,36 +17,23 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles=new HashSet<>();
+    @Column(name = "role", nullable = false)
+    private String role;
 
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id", nullable = true)
-    private Profile profile;
-    
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	public Long getId() {
-        return id;
+	@Override
+    public String toString() {
+        return  "[ Id: " + id + ", Username: " + username + ", Password:" + password + ", Role: "+ role +" ]";
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() {
+		return id;
+	}
 
-    public String getUsername() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
         return username;
     }
 
@@ -77,17 +48,12 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public Profile getProfile() {
-		return profile;
-	}
 
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	@Override
-    public String toString() {
-        return  "[ ID: " + id + " username: " + username + " pasword :" + password + " ]";
+    public void setRole(String role) {
+        this.role = role;
     }
 }

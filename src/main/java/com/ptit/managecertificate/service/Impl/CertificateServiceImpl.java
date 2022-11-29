@@ -39,7 +39,7 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public Certificate getCertificateByCode(String code) {
+    public Certificate getCertificateByCode(Long code) {
         return certificateDAO.getCertificateByCode(code);
     }
 

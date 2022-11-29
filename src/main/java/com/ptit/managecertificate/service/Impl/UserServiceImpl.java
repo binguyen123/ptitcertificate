@@ -1,11 +1,11 @@
 package com.ptit.managecertificate.service.Impl;
 
-import com.ptit.managecertificate.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ptit.managecertificate.dao.UserDAO;
 import com.ptit.managecertificate.entity.User;
+import com.ptit.managecertificate.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,37 +14,47 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDAO userDao;
+    private UserDAO userDAO;
 
     public void saveUser(User user) {
-        userDao.save(user);
+        userDAO.save(user);
     }
 
     public void updateUser(User user) {
-        userDao.update(user);
+        userDAO.update(user);
     }
 
     @Override
     public void deleteUser(User user) {
-        userDao.delete(user);
+        userDAO.delete(user);
     }
 
     @Override
     public User getUserById(Long id) {
-        return userDao.findById(id);
+        return userDAO.findById(id);
     }
 
     public User getUserByUserName(String userName) {
-        return userDao.getUserByUserName(userName);
+        return userDAO.getUserByUserName(userName);
     }
 
     public boolean checkUserInDatabase(User user) {
-        return userDao.checkUserInDatabase(user);
+        return userDAO.checkUserInDatabase(user);
     }
 
     @Override
     public List<User> listUser() {
-        return userDao.findAll();
+        return userDAO.findAll();
+    }
+
+    @Override
+    public List<User> listUser(Pageable page) {
+        return userDAO.findByPageable(page);
+    }
+
+    @Override
+    public long getTotalUser() {
+        return userDAO.getTotalUser();
     }
 
 

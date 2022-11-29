@@ -1,23 +1,23 @@
 package com.ptit.managecertificate.dao.Impl;
 
-import java.util.List;
-
+import com.ptit.managecertificate.dao.UserDAO;
+import com.ptit.managecertificate.entity.User;
+import com.ptit.managecertificate.model.UserModel;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ptit.managecertificate.dao.UserDAO;
-import com.ptit.managecertificate.entity.User;
-import com.ptit.managecertificate.model.UserModel;
+import java.math.BigInteger;
+import java.util.List;
 
-@Repository("userDao")
+@Repository("userDAO")
 @Transactional
 public class UserDAOImpl implements UserDAO {
 	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
@@ -97,6 +97,26 @@ public class UserDAOImpl implements UserDAO {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public long getTotalUser() {
+        Session session = this.sessionFactory.getCurrentSession();
+        String sql = "select count(*) from project.user u";
+        Query<?> query = session.createSQLQuery(sql);
+        Long count = ((BigInteger)query.uniqueResult()).longValue();
+        return count;
+    }
+
+    @Override
+    public List<User> findByPageable(Pageable pageable) {
+        Session session = this.sessionFactory.getCurrentSession();
+        String sql = "select * from project.user";
+        NativeQuery query = session.createSQLQuery(sql).addEntity(User.class);
+        query.setFirstResult(pageable.getPageNumber());
+        query.setMaxResults(pageable.getPageSize());
+        List<User> userList = query.list();
+        return userList;
     }
 
 }

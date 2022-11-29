@@ -9,7 +9,7 @@ public interface CertificateDAO {
     public void update(Certificate certificate);
     public void delete(Certificate certificate);
     public List<Certificate> findAll();
-    public Certificate getCertificateByCode(String code);
+    public Certificate getCertificateByCode(Long id);
     public Certificate getCertificateByCertificateName(String certificateName);
     public boolean checkCertificateInDatabase(Certificate certificate);
 }
