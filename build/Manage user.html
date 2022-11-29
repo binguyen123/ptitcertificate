@@ -1,0 +1,262 @@
+
+
+
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<link href="/Application/resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link href="/Application/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet"/>
+<link href="/Application/resources/datepicker/css/datepicker.css" rel="stylesheet"/>
+<link href="/Application/resources/assets/css/bootstrap-united.css" rel="stylesheet"/>
+<link href="/Application/resources/datepicker/css/datepicker.css" rel="stylesheet"/>
+
+<link href="/Application/resources/jqwidgets/styles/jqx.base.css" rel="stylesheet">
+
+<script src="/Application/resources/scripts/jquery-1.11.1.min.js" ></script>
+<script src="/Application/resources/jqwidgets/jqxcore.js"></script>
+<script src="/Application/resources/bootstrap/js/bootstrap.js"></script>
+<script src="/Application/resources/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="/Application/resources/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="/Application/resources/jqwidgets/jqx-all.js"></script>
+<script type="text/javascript" src="/Application/resources/DataTables/datatables.min.js" charset="UTF-8"></script>
+<style>
+    .error {
+        color: #ff0000;
+        font-size: 0.9em;
+        font-weight: bold;
+    }
+
+    .errorblock {
+        color: #000;
+        background-color: #ffEEEE;
+        border: 3px solid #ff0000;
+        padding: 8px;
+        margin: 16px;
+    }
+</style>
+
+    <script type="text/javascript" src="/Application/resources/jqwidgets/jqxradiobutton.js"></script>
+    <script type="text/javascript" src="/Application/resources/jqwidgets/jqxbuttons.js"></script>
+    <title>Manage user</title>
+    <style>
+        .green {
+            font-weight: bold;
+            color: green;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .error {
+            color: #ff0000;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .errorblock {
+            color: #000;
+            background-color: #ffEEEE;
+            border: 3px solid #ff0000;
+            padding: 8px;
+            margin: 16px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        });
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-default">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+			data-target=".navbar-responsive-collapse">
+			<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+				class="icon-bar"></span>
+		</button>
+	</div>
+
+	<div class="navbar-collapse collapse navbar-responsive-collapse">
+		<ul class="nav navbar-nav navbar-left">
+			<li><a href="/Application/">Home</a></li>
+
+			
+				<li><a href="/Application/">Dashboard</a></li>
+				<li class="dropdown"><a href="/" class="dropdown-toggle"
+					data-toggle="dropdown">Create New Account<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="/Application/users">Manage Users</a></li>
+					</ul></li>
+				<li><a href="/Application/certificate">Certificate</a></li>
+				<li><a href="/Application/certificate">Course</a></li>
+				<li><a href="/Application/editProfile">Information</a>
+			
+
+			
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+
+			
+
+			
+				<li><a href="/Application/">Hi,  ngocbao
+				</a></li>
+				<li><a href="logout">Log Out</a></li>
+			
+		</ul>
+	</div>
+</div>
+<div class="container">
+    <div class="jumbotron">
+        <div>
+            <h1 class="text-center">Create New Account for User</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-6 col-lg-offset-3">
+    <div class="well">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <form id="myForm" class="bs-example form-horizontal" action="/Application/user/add" method="POST">
+                        <fieldset>
+                            <legend>Register account</legend>
+
+                            <div class="form-group">
+                                <label for="userNameInput" class="col-lg-3 control-label">Username:</label>
+                                <div class="col-lg-9">
+                                    <input id="userNameInput" name="username" name="username" placeholder="User Name" type="text" class="form-control" value=""/>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passwordInput" class="col-lg-3 control-label">Password:</label>
+                                <div class="col-lg-9">
+                                    <input id="passwordInput" name="password" name="password" placeholder="Password" type="password" class="form-control" value=""/>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-lg-offset-3">
+                            <input id="type1" name="type" type="radio" value="ROLE_ADMIN"/>Admin
+							<input id="type2" name="type" checked="checked" type="radio" value="ROLE_USER"/>User
+                            </div>
+                            <div class="col-lg-9 col-lg-offset-3">
+
+                                <input style='margin-top: 20px;' type="submit" value="Create" id='jqxSubmitButton' />
+
+                                <input style='margin-top: 20px;' type="button" value="cancel" id='jqxButton' />
+
+                                <div id="themodal" class="modal fade" data-backdrop="static">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;
+                                                </button>
+                                                <h3>Create User?..</h3>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p>Do you want create new user?</p>
+                                                <div class="progress progress-striped active">
+                                                    <div id="doitprogress" class="progress-bar"></div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Yes" id="yesbutton"
+                                                       class="btn btn-primary" data-loading-text="Saving.."
+                                                       data-complete-text="Saved!"> <a href="#"
+                                                                                       class="btn btn-default"
+                                                                                       data-dismiss="modal">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="col-lg-6 col-lg-offset-3">
+    <div class="well">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Persons List</h3>
+                    
+                        <table class="tg">
+                            <tr>
+                                <th width="80">Id</th>
+                                <th width="120">UserName</th>
+                                <th width="120">Password</th>
+                                <th width="60">Edit</th>
+                                <th width="60">Delete</th>
+                            </tr>
+                            
+                                <tr>
+                                    <td>8</td>
+                                    <td>ngocbao</td>
+                                    <td>$2a$10$mZ7joG9xO5Y5X7A.dnQ6eO61y40933vvJ5dqLO6RKLLs4O9mD/GZC</td>
+                                    <td><a href="/Application/edit/8">Edit</a></td>
+                                    <td><a href="/Application/remove/8">Delete</a></td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>31</td>
+                                    <td>khoahung</td>
+                                    <td>$2a$10$bm6BiEEeeVl/kkubZRVYL.EIfCYmFFekM4.q.Ry17MkT/Qe1Fjr86</td>
+                                    <td><a href="/Application/edit/31">Edit</a></td>
+                                    <td><a href="/Application/remove/31">Delete</a></td>
+                                </tr>
+                            
+                        </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var yesButton = $("#yesbutton");
+        var progress = $("#doitprogress");
+
+        yesButton.click(function () {
+            yesButton.button("loading");
+
+            var counter = 0;
+            var countDown = function () {
+                counter++;
+                if (counter == 11) {
+                    yesButton.button("complete");
+                } else {
+                    progress.width(counter * 10 + "%");
+                    setTimeout(countDown, 100);
+                }
+            };
+            setTimeout(countDown, 100);
+        });
+
+    });
+</script>
+
+</body>
+</html>
