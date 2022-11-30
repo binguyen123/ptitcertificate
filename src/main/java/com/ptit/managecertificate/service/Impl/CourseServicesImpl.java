@@ -49,4 +49,9 @@ public class CourseServicesImpl implements CourseService {
     public boolean checkCourseInDB(Course course) {
         return courseDAO.checkCourseInDB(course);
     }
+
+	@Override
+	public List<Course> listCourseSameCertificate(Long id) {
+		return courseDAO.findSameCertificate(id);
+	}
 }

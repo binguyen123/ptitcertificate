@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -191,7 +193,14 @@
 </head>
 <body>
 	<jsp:include page="../_barmenu.jsp" />
-
+	
+	<%--if have error show message dialog--%>
+	<c:if test="${not empty message}">
+		<div class="container">
+			<div class="alert alert-danger">${message}</div>
+		</div>
+	</c:if>
+<sec:authorize access="isAuthenticated()">
 	<div class="col-lg-6 col-lg-offset-3">
 		<div class="well">
 			<div class="container">
@@ -246,7 +255,7 @@
 			</div>
 		</div>
 	</div>
-
+</sec:authorize>
 
 
 	<div class="col-lg-6 col-lg-offset-3">
@@ -259,7 +268,7 @@
 					<th>Id</th>
 					<th>UserName</th>
 					<th>Password</th>
-					<th>Edit/Delete</th>
+					<sec:authorize access="isAuthenticated()"><th>Edit/Delete</th></sec:authorize>
 				</tr>
 			</thead>
 			<tbody>
@@ -268,8 +277,8 @@
 						<td>${user.id}</td>
 						<td>${user.username}</td>
 						<td>${user.password}</td>
-						<td><a href="<c:url value='/user/edit/${user.id}' />">Edit</a>
-							/ <a href="<c:url value='/user/remove/${user.id}' />">Delete</a></td>
+						<sec:authorize access="isAuthenticated()"><td><a href="<c:url value='/user/edit/${user.id}' />">Edit</a>
+							/ <a href="<c:url value='/user/remove/${user.id}' />">Delete</a></td></sec:authorize>
 					</tr>
 				</c:forEach>
 			</tbody>

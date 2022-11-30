@@ -11,5 +11,6 @@ public interface CourseService {
     Course getCourseById(Long id);
     Course getCourseByName(String name);
     List<Course> listCourse();
+    List<Course> listCourseSameCertificate(Long id);
     boolean checkCourseInDB(Course course);
 }

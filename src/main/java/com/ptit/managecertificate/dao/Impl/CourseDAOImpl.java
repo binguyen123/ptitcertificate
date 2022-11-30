@@ -80,10 +80,10 @@ public class CourseDAOImpl implements CourseDAO {
     @Override
     public boolean checkCourseInDB(Course course) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select s.* from project.course s where name = :name";
+        String sql = "select s.* from project.course s where id = :id";
         NativeQuery querry = session.createSQLQuery(sql)
                 .addEntity(Course.class)
-                .setParameter("name", course.getName());
+                .setParameter("id", course.getId());
         List list = querry.list();
         if (list != null && list.size() > 0) {
             return true;
@@ -91,4 +91,13 @@ public class CourseDAOImpl implements CourseDAO {
             return false;
         }
     }
+
+	@Override
+	public List<Course> findSameCertificate(Long id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from Course c where c.certificate.id = :id";
+		
+		List<Course> listCourses = session.createQuery(sql).setParameter("id", id).list();
+		return listCourses;
+	}
 }

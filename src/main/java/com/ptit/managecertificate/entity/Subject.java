@@ -10,7 +10,7 @@ public class Subject implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "name")
@@ -19,10 +19,10 @@ public class Subject implements Serializable {
     @Column(name = "description")
     private String description;
 
-//    // ManyToMany with course
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "course_id", nullable = true)
-//    private Course course;
+    // ManyToMany with course
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     public Long getId() {
         return id;
@@ -48,13 +48,13 @@ public class Subject implements Serializable {
         this.description = description;
     }
 
-//    public Course getCourse() {
-//        return course;
-//    }
-//
-//    public void setCourse(Course course) {
-//        this.course = course;
-//    }
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     @Override
     public String toString() {

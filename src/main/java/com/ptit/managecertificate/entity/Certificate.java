@@ -2,74 +2,76 @@ package com.ptit.managecertificate.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "certificate")
-public class Certificate implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class Certificate implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true)
+	private Long id;
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    @Column(name = "description")
-    private String description;
+	@Column(name = "description")
+	private String description;
 
-    @Column(name = "grantedBy")
-    private String grantedBy;
+	// One To Many With Course
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "certificate")
+	private Set<Course> courses = new HashSet<>();
 
-    // OneToOne with course
+	// OneToOne with Program
+	@OneToOne
+	@JoinColumn(name = "program_id", nullable = false)
+	private Program program;
 
-    // ManyToMany with certificate
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "person_certificate",
-//            joinColumns = { @JoinColumn(name = "certificate_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "person_id") }
-//    )
-//    private Set<Person> personSet = new HashSet<>();
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Set<Course> getCourses() {
+		return courses;
+	}
 
-    public String getGrantedBy() {
-        return grantedBy;
-    }
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 
-    public void setGrantedBy(String grantedBy) {
-        this.grantedBy = grantedBy;
-    }
+	public Program getProgram() {
+		return program;
+	}
 
-//    public Set<Person> getPersonSet() {
-//        return personSet;
-//    }
-//
-//    public void setPersonSet(Set<Person> personSet) {
-//        this.personSet = personSet;
-//    }
+	public void setProgram(Program program) {
+		this.program = program;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

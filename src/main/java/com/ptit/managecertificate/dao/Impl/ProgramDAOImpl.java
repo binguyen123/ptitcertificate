@@ -79,10 +79,10 @@ public class ProgramDAOImpl implements ProgramDAO {
     @Override
     public boolean checkProgramInDB(Program program) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select c.* from project.program c where name = :name" ;
+        String sql = "select c.* from project.program c where c.id = :id" ;
         NativeQuery query = session.createSQLQuery(sql)
                 .addEntity(Program.class)
-                .setParameter("name", program.getName());
+                .setParameter("id", program.getId());
         List list = query.list();
         if (list != null && list.size() > 0) {
             return true;

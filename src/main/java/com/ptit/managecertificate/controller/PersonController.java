@@ -13,71 +13,92 @@ import com.ptit.managecertificate.model.PersonModel;
 import com.ptit.managecertificate.service.CourseService;
 import com.ptit.managecertificate.service.PersonService;
 
-
 @Controller
 public class PersonController {
 
-    @Autowired
-    PersonService personService;
-    
-    @Autowired
-    CourseService courseService;
+	@Autowired
+	PersonService personService;
 
-    @RequestMapping(value = "/person/list", method = RequestMethod.GET)
-    public String listPerson(Model model) {
-        model.addAttribute("person", new PersonModel());
-        model.addAttribute("listPersons", personService.listPerson());
-        model.addAttribute("listCourses", courseService.listCourse());
-        return "authorize/managePerson";
-    }
+	@Autowired
+	CourseService courseService;
 
-    @RequestMapping(value = "/person/add", method = RequestMethod.POST)
-    public String addPerson(@ModelAttribute("person") PersonModel personModel, Model model) {
-        Person p = new Person();
-        p.setId(personModel.getId());
-        p.setFirstName(personModel.getFirstName());
-        p.setLastName(personModel.getLastName());
-        p.setGender(personModel.getGender());
-        p.setDateOfBirth(personModel.getDateOfBirth());
-        p.setMobileNumber(personModel.getMobileNumber());
-        p.setEmail(personModel.getEmail());
-        p.setCourse(courseService.getCourseById(personModel.getCourse_id()));
-        
+	@RequestMapping(value = "/person/list", method = RequestMethod.GET)
+	public String listPerson(Model model) {
+		model.addAttribute("person", new PersonModel());
+		model.addAttribute("listPersons", personService.listPerson());
+		model.addAttribute("listCourses", courseService.listCourse());
+		return "authorize/managePerson";
+	}
 
-        if (!personService.checkPersonInDatabase(p)) {
-            personService.savePerson(p);
-        } else {
-            Person pp = personService.getPersonById(p.getId());
-            personService.updatePerson(pp);
-        }
+	@RequestMapping(value = "/person/add", method = RequestMethod.POST)
+	public String addPerson(@ModelAttribute("person") PersonModel personModel, Model model) {
+		
+		while(personModel.getCourse_id()==null) {
+			model.addAttribute("message", "Please Choose Course");
+			model.addAttribute("person", personModel);
+			model.addAttribute("listPersons", personService.listPerson());
+			model.addAttribute("listCourses", courseService.listCourse());
+			return "authorize/managePerson";
+		}
+		
+		Person p = new Person();
+		p.setId(personModel.getId());
+		p.setFirstName(personModel.getFirstName());
+		p.setLastName(personModel.getLastName());
+		p.setGender(personModel.getGender());
+		p.setDateOfBirth(personModel.getDateOfBirth());
+		p.setMobileNumber(personModel.getMobileNumber());
+		p.setEmail(personModel.getEmail());
+		p.setCourse(courseService.getCourseById(personModel.getCourse_id()));
 
-        model.addAttribute("person", new PersonModel());
-        return "redirect:/person/list";
-    }
+		if (!personService.checkPersonInDatabase(p)) {
+			personService.savePerson(p);
+		} else {
+			Person pp = personService.getPersonById(p.getId());
+			try {
+				pp.setFirstName(personModel.getFirstName());
+				pp.setLastName(personModel.getLastName());
+				pp.setGender(personModel.getGender());
+				pp.setDateOfBirth(personModel.getDateOfBirth());
+				pp.setMobileNumber(personModel.getMobileNumber());
+				pp.setEmail(personModel.getEmail());
+				pp.setCourse(courseService.getCourseById(personModel.getCourse_id()));
+			} catch (Exception e) {
+			}
 
-    @RequestMapping("/person/edit/{id}")
-    public String editPerson(@PathVariable("id") Long id, Model model) {
-        Person pp = personService.getPersonById(id);
+			personService.updatePerson(pp);
+		}
 
-        PersonModel p = new PersonModel();
-        p.setId(pp.getId());
-        p.setFirstName(pp.getFirstName());
-        p.setLastName(pp.getLastName());
-        p.setGender(pp.getGender());
-        p.setDateOfBirth(pp.getDateOfBirth());
-        p.setMobileNumber(pp.getMobileNumber());
-        p.setEmail(pp.getEmail());
-        p.setCourse_id(pp.getCourse().getId());
+		model.addAttribute("person", new PersonModel());
+		return "redirect:/person/list";
+	}
 
-        model.addAttribute("person", p);
-        model.addAttribute("listPersons", personService.listPerson());
-        model.addAttribute("listCourses", courseService.listCourse());
-        return "authorize/managePerson";
-    }
+	@RequestMapping("/person/edit/{id}")
+	public String editPerson(@PathVariable("id") Long id, Model model) {
+		Person pp = personService.getPersonById(id);
 
-    @RequestMapping("/person/remove/{id}")
-    public String removePerson(@PathVariable("id")Long id, Model model){
-        this.personService.deletePerson(personService.getPersonById(id));
-        return "redirect:/person/list";
-    }
+		PersonModel p = new PersonModel();
+		try {
+			p.setId(pp.getId());
+			p.setFirstName(pp.getFirstName());
+			p.setLastName(pp.getLastName());
+			p.setGender(pp.getGender());
+			p.setDateOfBirth(pp.getDateOfBirth());
+			p.setMobileNumber(pp.getMobileNumber());
+			p.setEmail(pp.getEmail());
+			p.setCourse_id(pp.getCourse().getId());
+		} catch (Exception e) {
+		}
+
+		model.addAttribute("person", p);
+		model.addAttribute("listPersons", personService.listPerson());
+		model.addAttribute("listCourses", courseService.listCourse());
+		return "authorize/managePerson";
+	}
+
+	@RequestMapping("/person/remove/{id}")
+	public String removePerson(@PathVariable("id") Long id, Model model) {
+		this.personService.deletePerson(personService.getPersonById(id));
+		return "redirect:/person/list";
+	}
 }

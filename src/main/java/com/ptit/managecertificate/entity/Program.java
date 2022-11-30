@@ -13,7 +13,7 @@ public class Program {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "name")
@@ -22,7 +22,7 @@ public class Program {
     @Column(name = "description")
     private String description;
 
-    // OneToOne with course
+    // OneToOne with certificate
 
     public Long getId() {
         return id;

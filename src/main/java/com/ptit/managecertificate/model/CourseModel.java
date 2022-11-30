@@ -6,6 +6,7 @@ public class CourseModel {
     private String pointAverage;
     private String dateStart;
     private String dateEnd;
+    private Long certificate_id;
 
     public Long getId() {
         return id;
@@ -47,5 +48,12 @@ public class CourseModel {
 		this.dateEnd = dateEnd;
 	}
 
-    
+	public Long getCertificate_id() {
+		return certificate_id;
+	}
+
+	public void setCertificate_id(Long certificate_id) {
+		this.certificate_id = certificate_id;
+	}
+	
 }

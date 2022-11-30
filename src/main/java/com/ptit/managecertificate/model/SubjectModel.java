@@ -4,6 +4,7 @@ public class SubjectModel {
     private Long id;
     private String name;
     private String description;
+    private Long course_id;
 
     public Long getId() {
         return id;
@@ -29,4 +30,12 @@ public class SubjectModel {
         this.description = description;
     }
 
+	public Long getCourse_id() {
+		return course_id;
+	}
+
+	public void setCourse_id(Long course_id) {
+		this.course_id = course_id;
+	}
+    
 }

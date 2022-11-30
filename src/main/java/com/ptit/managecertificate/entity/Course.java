@@ -1,8 +1,8 @@
 package com.ptit.managecertificate.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,7 +22,7 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "name")
@@ -40,14 +42,20 @@ public class Course implements Serializable {
         return "Course [ Id:" + id + ", Name: " + name + ", Point Avg: " + pointAverage +", ListP: "+ persons.toString() + ", Started Date: " + dateStart + ", End Date: " + dateEnd + " ]";
     }
 
-//    // Many Subject in Course
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-//    private Set<Subject> subjects = new HashSet<>();
-//
-    // Many student ( person ) in Course
+    // Many Subject in Course
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-    private List<Person> persons = new ArrayList<>();
-//
+    private Set<Subject> subjects = new HashSet<>();
+
+    // OneToMany with student
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    private Set<Person> persons = new HashSet<>();
+
+    // ManyToOne with certificate
+    @ManyToOne
+    @JoinColumn(name = "certificate_id")
+    private Certificate certificate;
+    
+    
 //    // Provide 1 certificate when finish 1 course
 //    // OneToOne with certificate
 //    @OneToOne
@@ -94,31 +102,34 @@ public class Course implements Serializable {
 		this.dateEnd = dateEnd;
 	}
 
-	public List<Person> getPersons() {
+	public Set<Subject> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(Set<Subject> subjects) {
+		this.subjects = subjects;
+	}
+
+	public Set<Person> getPersons() {
 		return persons;
 	}
 
-	public void setPersons(List<Person> persons) {
+	public void setPersons(Set<Person> persons) {
 		this.persons = persons;
 	}
 
-    
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-//    public Set<Subject> getSubjects() {
-//        return subjects;
-//    }
-//
-//    public void setSubjects(Set<Subject> subjects) {
-//        this.subjects = subjects;
-//    }
-//
-    
-//
-//    public Certificate getCertificate() {
-//        return certificate;
-//    }
-//
-//    public void setCertificate(Certificate certificate) {
-//        this.certificate = certificate;
-//    }
+	public Certificate getCertificate() {
+		return certificate;
+	}
+
+	public void setCertificate(Certificate certificate) {
+		this.certificate = certificate;
+	}
+	
+	
+	
 }

@@ -1,9 +1,5 @@
 package com.ptit.managecertificate.controller;
 
-import com.ptit.managecertificate.entity.Program;
-import com.ptit.managecertificate.model.ProgramModel;
-import com.ptit.managecertificate.service.ProgramService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ptit.managecertificate.entity.Program;
+import com.ptit.managecertificate.model.ProgramModel;
+import com.ptit.managecertificate.service.ProgramService;
+
 @Controller
 public class ProgramController {
-    private static final Logger logger = Logger.getLogger(ProgramController.class);
     @Autowired
     ProgramService programService;
 
@@ -35,7 +34,8 @@ public class ProgramController {
         if (!programService.checkProgramInDatabase(program)) {
             programService.saveProgram(program);
         } else {
-            Program p = programService.getProgramByName(program.getName());
+            Program p = programService.getProgramById(programModel.getId());
+            p.setName(programModel.getName());
             p.setDescription(programModel.getDescription());
             programService.updateProgram(p);
         }
@@ -49,6 +49,7 @@ public class ProgramController {
         Program p = programService.getProgramById(id);
 
         ProgramModel pm = new ProgramModel();
+        pm.setId(p.getId());
         pm.setName(p.getName());
         pm.setDescription(p.getDescription());
 

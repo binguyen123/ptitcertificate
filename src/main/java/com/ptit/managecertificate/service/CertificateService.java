@@ -10,7 +10,7 @@ public interface CertificateService {
     void updateCertificate(Certificate certificate);
     void deleteCertificate(Certificate certificate);
     List<Certificate> listCertificate();
-    Certificate getCertificateByCode(Long id);
+    Certificate getCertificateById(Long id);
     Certificate getCertificateByName(String certificate);
     boolean checkCertificateSInDatabase(Certificate certificate);
 

@@ -1,8 +1,8 @@
 package com.ptit.managecertificate.dao;
 
-import com.ptit.managecertificate.entity.Subject;
-
 import java.util.List;
+
+import com.ptit.managecertificate.entity.Subject;
 
 public interface SubjectDAO {
     void save(Subject subject);
@@ -10,6 +10,7 @@ public interface SubjectDAO {
     void delete(Subject subject);
     Subject findById(Long id);
     List<Subject> findAll();
+    List<Subject> findSameCourse(Long id);
     Subject getSubjectByName(String subjectName);
     boolean checkSubjectInDatabase(Subject subject);
 

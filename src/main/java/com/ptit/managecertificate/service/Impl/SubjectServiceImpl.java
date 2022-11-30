@@ -48,4 +48,9 @@ public class SubjectServiceImpl implements SubjectService {
     public boolean checkSubjectInDataBase(Subject subject) {
         return subjectDAO.checkSubjectInDatabase(subject);
     }
+
+	@Override
+	public List<Subject> listSubjectInSameCourse(Long id) {
+		return subjectDAO.findSameCourse(id);
+	}
 }

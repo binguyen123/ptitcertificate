@@ -39,8 +39,8 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public Certificate getCertificateByCode(Long code) {
-        return certificateDAO.getCertificateByCode(code);
+    public Certificate getCertificateById(Long code) {
+        return certificateDAO.getCertificateById(code);
     }
 
     @Override

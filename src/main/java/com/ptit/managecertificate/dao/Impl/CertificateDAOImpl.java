@@ -54,9 +54,9 @@ public class CertificateDAOImpl implements CertificateDAO {
     }
 
     @Override
-    public Certificate getCertificateByCode(Long code) {
+    public Certificate getCertificateById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.get(Certificate.class, code);
+        return session.get(Certificate.class, id);
     }
 
     @Override
@@ -79,10 +79,10 @@ public class CertificateDAOImpl implements CertificateDAO {
     @Override
     public boolean checkCertificateInDatabase(Certificate certificate) {
         Session session = this.sessionFactory.getCurrentSession();
-        String sql = "select c.* from project.certificate c where name = :name" ;
+        String sql = "select c.* from project.certificate c where id = :id" ;
         NativeQuery query = session.createSQLQuery(sql)
                 .addEntity(Certificate.class)
-                .setParameter("name", certificate.getName());
+                .setParameter("id", certificate.getId());
         List list = query.list();
         if (list != null && list.size() > 0) {
             return true;

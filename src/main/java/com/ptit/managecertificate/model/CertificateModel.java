@@ -5,7 +5,7 @@ public class CertificateModel {
 	private Long id;
     private String name;
     private String description;
-	private String grantedBy;
+	private Long grantedBy;
 
 	public Long getId() {
 		return id;
@@ -31,11 +31,12 @@ public class CertificateModel {
 		this.description = description;
 	}
 
-	public String getGrantedBy() {
+	public Long getGrantedBy() {
 		return grantedBy;
 	}
 
-	public void setGrantedBy(String grantedBy) {
+	public void setGrantedBy(Long grantedBy) {
 		this.grantedBy = grantedBy;
 	}
+
 }
